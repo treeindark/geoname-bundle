@@ -135,6 +135,14 @@ class Country implements Stringable
      */
     protected ?array $languages;
 
+     /**
+     * @var GeoName
+     *
+     * @ORM\ManyToOne(targetEntity="Bordeux\Bundle\GeoNameBundle\Entity\GeoName")
+     * @ORM\JoinColumn(name="continent_id", referencedColumnName="id", nullable=true)
+     */
+    protected ?GeoName $continent;
+
     /**
      * @var GeoName
      *
@@ -450,7 +458,22 @@ class Country implements Stringable
         $this->geoName = $geoName;
         return $this;
     }
-
+/**
+     * @param GeoName|null $geoName
+     * @return $this
+     */
+    public function setContinent(?GeoName $geoName): self
+    {
+        $this->continent = $geoName;
+        return $this;
+    }
+    /**
+     * @return GeoName|null
+     */
+    public function getContinent(): ?GeoName
+    {
+        return $this->continent;
+    }
     /**
      * @return string
      */
