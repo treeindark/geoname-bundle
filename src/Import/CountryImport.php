@@ -83,6 +83,22 @@ class CountryImport extends AbstractImport
                 $object->setPostalFormat($item['postal_format'] ?: null);
                 $object->setPostalRegex($item['postal_regex'] ?: null);
                 $object->setLanguages(explode(",", $item['languages']) ?: null);
+
+                $idContinent = match ($item['continent']) {
+                    'AF' => 6255146,
+                    'AS' => 6255147,
+                    'EU' => 6255148,
+                    'NA' => 6255149,
+                    'OC' => 6255151,
+                    'SA' => 6255150,
+                    'AN' => 6255152,
+                };
+                $object->setContinent(
+                    $this->em->getRepository(GeoName::class)
+                        ->find($idContinent)
+                );
+
+                
                 $object->setGeoName(
                     $this->em->getRepository(GeoName::class)
                         ->find($id)
